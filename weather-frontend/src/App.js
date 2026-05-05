@@ -49,7 +49,7 @@ function App() {
   const [timeRange, setTimeRange] = useState('1h');
 
   // 👉 1. Визначаємо поточний хост динамічно (localhost для ПК, або IP комп'ютера для телефона)
-  const API_BASE = `http://${window.location.hostname}:5000`;
+  const API_BASE = `https://diploma-kalinina-bip-1-22.onrender.com`;
 
   // 👉 2. Додаємо стейт та ресайз-слухач для адаптивності під мобільні екрани
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
