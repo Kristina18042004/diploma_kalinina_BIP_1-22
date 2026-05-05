@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 // Імпортуємо компоненти для декомпонованих графіків
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 // =================== ДОПОМІЖНІ АНАЛІЗАТОРИ СТАТУСІВ ===================
 
@@ -123,12 +123,13 @@ function App() {
   // Перезапускаємо інтервал щоразу, коли користувач вибирає інший час
   useEffect(() => {
     loadWeatherData(timeRange); // Миттєвий виклик при зміні кнопки
-    
+
     const interval = setInterval(() => {
-      loadWeatherData(timeRange);
-    }, 5000); // Оновлення кожні 5 секунд
-    
-    return () => clearInterval(interval); // Чистимо інтервал при зміні dependency
+    loadWeatherData(timeRange);
+  }, 5000); // Оновлення кожні 5 секунд
+
+  return () => clearInterval(interval); // Чистимо інтервал при зміні dependency
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeRange]); // 👉 Додали [timeRange] в залежності!
 
   // Розраховуємо динамічні статуси перед рендером
