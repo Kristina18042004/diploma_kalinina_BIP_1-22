@@ -222,7 +222,7 @@ function App() {
                 {renderSingleDecomposedChart("Графік пилу (мкг/м³)", "dust", "мкг/м³", "#3498db", history, [5, 'auto'])}
                 
                 {/* ГРАФІК 3: ТИСК (hPa) */}
-                {renderSingleDecomposedChart("Gradik тиску (hPa)", "pres", "hPa", "#e74c3c", history, [1000, 'auto'])}
+                {renderSingleDecomposedChart("Графік тиску (hPa)", "pres", "hPa", "#e74c3c", history, [1000, 'auto'])}
               </div>
             </div>
 
