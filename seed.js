@@ -28,15 +28,15 @@ const data = [
 async function seedDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("✅ Підключено до бази для посіву");
+    console.log("Підключено до бази для посіву");
     
     await WeatherData.deleteMany({}); 
 
     await WeatherData.insertMany(data);
-    console.log("🚀 Дані успішно завантажені в MongoDB!");
+    console.log("Дані успішно завантажені в MongoDB!");
     process.exit();
   } catch (err) {
-    console.error("❌ Помилка:", err);
+    console.error("Помилка:", err);
     process.exit(1);
   }
 }
