@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const WeatherData = require('./models/WeatherData'); // Перевір шлях до моделі
+const WeatherData = require('./models/WeatherData'); 
 
 const data = [
   {"tavg": 22.1, "pres": 1012, "co2": 415, "dust": 12.4, "stationId": "ESP32_01", "date": "2024-05-20T10:00:00.000Z"},
@@ -30,7 +30,6 @@ async function seedDB() {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ Підключено до бази для посіву");
     
-    // Очищуємо стару історію, щоб дані не дублювалися (опціонально)
     await WeatherData.deleteMany({}); 
 
     await WeatherData.insertMany(data);
