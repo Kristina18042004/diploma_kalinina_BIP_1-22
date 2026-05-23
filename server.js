@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 async function fetchAndSaveRealData() {
   try {
-    console.log('🔄 [Data Pipeline] Отримання свіжих даних з зовнішніх API...');
+    console.log('[Data Pipeline] Отримання свіжих даних з зовнішніх API...');
 
     // 1. Тиск для Києва (Open-Meteo)
     const resPressure = await axios.get(
