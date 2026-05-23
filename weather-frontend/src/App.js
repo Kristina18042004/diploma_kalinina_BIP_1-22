@@ -1,40 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// Імпортуємо компоненти для декомпонованих графіків
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-// =================== ДОПОМІЖНІ АНАЛІЗАТОРИ СТАТУСІВ ===================
+// =================== КАРТКИ З ДАНИМИ В ВИГЛЯДІ ЦИФР ===================
 
 const getCO2Status = (value) => {
   if (!value) return { color: '#95a5a6', desc: 'Немає даних' };
   if (value < 800) {
-    return { color: '#2ecc71', desc: 'Статус: Чудово' }; // Зелений
+    return { color: '#2ecc71', desc: 'Статус: Чудово' }; 
   } else if (value <= 1200) {
-    return { color: '#f1c40f', desc: 'Статус: Посередньо' }; // Жовтий
+    return { color: '#f1c40f', desc: 'Статус: Посередньо' }; 
   } else {
-    return { color: '#e74c3c', desc: 'Статус: Небезпека' }; // Червоний
+    return { color: '#e74c3c', desc: 'Статус: Небезпека' }; 
   }
 };
 
 const getDustStatus = (value) => {
   if (!value) return { color: '#95a5a6', desc: 'Немає даних' };
   if (value < 12) {
-    return { color: '#3498db', desc: 'Статус: Чисте повітря' }; // Блакитний
+    return { color: '#3498db', desc: 'Статус: Чисте повітря' };
   } else if (value <= 35.4) {
-    return { color: '#f1c40f', desc: 'Статус: Помірний пил' }; // Жовтий
+    return { color: '#f1c40f', desc: 'Статус: Помірний пил' }; 
   } else {
-    return { color: '#e74c3c', desc: 'Статус: Шкідливий рівень!' }; // Червоний
+    return { color: '#e74c3c', desc: 'Статус: Шкідливий рівень!' }; 
   }
 };
 
 const getPresStatus = (value) => {
   if (!value) return { color: '#95a5a6', desc: 'Немає даних' };
   if (value < 1008) {
-    return { color: '#9b59b6', desc: 'Статус: Низький тиск' }; // Фіолетовий
+    return { color: '#9b59b6', desc: 'Статус: Низький тиск' }; 
   } else if (value <= 1018) {
-    return { color: '#2ecc71', desc: 'Статус: Нормальний тиск' }; // Зелений
+    return { color: '#2ecc71', desc: 'Статус: Нормальний тиск' }; 
   } else {
-    return { color: '#e67e22', desc: 'Статус: Високий тиск' }; // Помаранчевий
+    return { color: '#e67e22', desc: 'Статус: Високий тиск' }; 
   }
 };
 
@@ -48,10 +47,10 @@ function App() {
   // Стан для активного часового проміжку (за замовчуванням '1h')
   const [timeRange, setTimeRange] = useState('1h');
 
-  // 👉 1. Визначаємо поточний хост динамічно (localhost для ПК, або IP комп'ютера для телефона)
+  // Поточний хост
   const API_BASE = `https://diploma-kalinina-bip-1-22.onrender.com`;
 
-  // 👉 2. Додаємо стейт та ресайз-слухач для адаптивності під мобільні екрани
+  // Стейт та ресайз-слухач для адаптивності під мобільні екрани
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   useEffect(() => {
@@ -66,7 +65,7 @@ function App() {
       // Отримуємо останні дані та історію з query-параметром range
       const [resLatest, resHistory] = await Promise.all([
         axios.get(`${API_BASE}/api/weather/latest`),
-        axios.get(`${API_BASE}/api/weather/history?range=${range}`) // 👉 Передаємо range на бекенд
+        axios.get(`${API_BASE}/api/weather/history?range=${range}`)
       ]);
       
       setWeather(resLatest.data);
@@ -101,7 +100,7 @@ function App() {
       })
     ];
 
-    // Додаємо BOM (Byte Order Mark) для коректного кодування кирилиці в Excel (UTF-8)
+    // BOM для коректного кодування кирилиці в Excel (UTF-8)
     const csvContent = "\uFEFF" + csvRows.join('\n');
     
     // Створюємо blob та посилання для скачування
@@ -111,7 +110,7 @@ function App() {
     const link = document.createElement("a");
     link.setAttribute("href", url);
     
-    // Файл називатиметься відповідно до вибраного часового фільтру, наприклад: weather_report_6h.csv
+    // Файл називатиметься відповідно до вибраного часового фільтру
     link.setAttribute("download", `weather_report_${timeRange}.csv`);
     link.style.visibility = 'hidden';
     
@@ -130,9 +129,9 @@ function App() {
 
   return () => clearInterval(interval); // Чистимо інтервал при зміні dependency
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeRange]); // 👉 Додали [timeRange] в залежності!
+  }, [timeRange]); // [timeRange] в залежності!
 
-  // Розраховуємо динамічні статуси перед рендером
+  // Динамічні статуси перед рендером
   const co2Status = getCO2Status(weather?.co2);
   const dustStatus = getDustStatus(weather?.dust);
   const presStatus = getPresStatus(weather?.pres);
@@ -208,7 +207,7 @@ function App() {
                 </button>
               </div>
               <button style={styles.exportButton} onClick={exportToCSV}>
-                Завантажити звіт (CSV) 💾
+                Завантажити звіт (CSV)
               </button>
             </div>
 
