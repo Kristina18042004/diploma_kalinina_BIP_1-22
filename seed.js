@@ -28,7 +28,7 @@ const data = [
 async function seedDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("Підключено до бази для посіву");
+    console.log("Підключено до бази");
     
     await WeatherData.deleteMany({}); 
 
