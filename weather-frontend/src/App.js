@@ -18,7 +18,7 @@ const getCO2Status = (value) => {
 const getDustStatus = (value) => {
   if (!value) return { color: '#95a5a6', desc: 'Немає даних' };
   if (value < 12) {
-    return { color: '#3498db', desc: 'Статус: Чисте повітря' };
+    return { color: '#2ecc71', desc: 'Статус: Чисте повітря' };
   } else if (value <= 35.4) {
     return { color: '#f1c40f', desc: 'Статус: Помірний пил' }; 
   } else {
@@ -29,11 +29,11 @@ const getDustStatus = (value) => {
 const getPresStatus = (value) => {
   if (!value) return { color: '#95a5a6', desc: 'Немає даних' };
   if (value < 1008) {
-    return { color: '#9b59b6', desc: 'Статус: Низький тиск' }; 
+    return { color: '#f1c40f', desc: 'Статус: Низький тиск' }; 
   } else if (value <= 1018) {
     return { color: '#2ecc71', desc: 'Статус: Нормальний тиск' }; 
   } else {
-    return { color: '#e67e22', desc: 'Статус: Високий тиск' }; 
+    return { color: '#e74c3c', desc: 'Статус: Високий тиск' }; 
   }
 };
 
