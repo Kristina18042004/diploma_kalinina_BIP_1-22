@@ -92,13 +92,12 @@ function App() {
       ...history.map(item => {
         const dateObj = new Date(item.date);
         
-        // Форматуємо окремо дату (ДД.ММ.РРРР) і окремо час (ГГ:ХХ) українською мовою
-        const dateStr = dateObj.toLocaleDateString('uk-UA');
         const day = String(dateObj.getDate()).padStart(2, '0');
         const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const year = String(dateObj.getFullYear()).slice(-2); // Беремо строго останні 2 цифри (26)
-
-        const dateStr = `${day}.${month}.${year}`;  
+        const year = String(dateObj.getFullYear()).slice(-2);
+        
+        const dateStr = `${day}.${month}.${year}`;
+        const timeStr = dateObj.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
         
         // ХАК ДЛЯ EXCEL: обгортаємо абсолютно ВСІ текстові та дробові поля у ="..."
         // Це примусово змушує Excel відкривати комірки на повну ширину і прибирає решітки (###)
@@ -106,7 +105,7 @@ function App() {
         const excelTime = `="${timeStr}"`;
         const excelDust = `="${item.dust || 0}"`;
         const excelPres = `="${item.pres || 0}"`;
-        const excelCo2  = `="${item.co2 || 0}"`; // Теж обгортаємо для залізобетонного вирівнювання
+        const excelCo2  = `="${item.co2 || 0}"`; 
 
         // Повертаємо 5 елементів масиву, з'єднаних через крапку з комою
         return [
