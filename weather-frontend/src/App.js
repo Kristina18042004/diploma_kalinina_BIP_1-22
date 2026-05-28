@@ -94,7 +94,7 @@ function App() {
         
         // Форматуємо окремо дату (ДД.ММ.РРРР) і окремо час (ГГ:ХХ) українською мовою
         const dateStr = dateObj.toLocaleDateString('uk-UA');
-        const timeStr = dateObj.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+        const dateStr = dateObj.toLocaleDateString('uk-UA', { day: '2-digit', month: '2-digit', year: '2-digit' });
         
         // ХАК ДЛЯ EXCEL: обгортаємо абсолютно ВСІ текстові та дробові поля у ="..."
         // Це примусово змушує Excel відкривати комірки на повну ширину і прибирає решітки (###)
