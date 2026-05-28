@@ -83,19 +83,33 @@ function App() {
       return;
     }
 
-    // Заголовки колонок у файлі
-    const headers = ["Дата та Час", "Рівень CO2 (ppm)", "Концентрація пилу (мкг/м³)", "Атмосферний тиск (hPa)"];
+    // 1. Оновлені заголовки: розділили Дату і Час на окремі стовпці
+    const headers = ["Дата", "Час", "Рівень CO2 (ppm)", "Концентрація пилу (мкг/м³)", "Атмосферний тиск (hPa)"];
 
     // Перетворюємо кожен запис з історії у рядок CSV
     const csvRows = [
-      headers.join(';'), // Перший рядок — заголовки (розділювач крапка з комою для кращої сумісності з Excel)
+      headers.join(';'), // Перший рядок — заголовки
       ...history.map(item => {
-        const formattedDate = new Date(item.date).toLocaleString().replace(/,/g, ''); // Прибираємо зайві коми з дати
+        const dateObj = new Date(item.date);
+        
+        // Форматуємо окремо дату (ДД.ММ.РРРР) і окремо час (ГГ:ХХ) українською мовою
+        const dateStr = dateObj.toLocaleDateString('uk-UA');
+        const timeStr = dateObj.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+        
+        // ХАК ДЛЯ EXCEL: обгортаємо тексти і дроби в ="...", щоб Excel автоматично 
+        // підлаштовував ширину комірок і не перетворював пил на календарні дати.
+        const excelDate = `="${dateStr}"`;
+        const excelTime = `="${timeStr}"`;
+        const excelDust = `="${item.dust || 0}"`;
+        const excelPres = `="${item.pres || 0}"`;
+        const excelCo2  = item.co2 || 0; // Ціле число лишаємо як є
+
         return [
-          formattedDate,
-          item.co2 || 0,
-          `="${item.dust || 0}"`,
-          item.pres || 0
+          excelDate,
+          excelTime,
+          excelCo2,
+          excelDust,
+          excelPres
         ].join(';');
       })
     ];
