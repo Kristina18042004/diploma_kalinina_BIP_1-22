@@ -94,7 +94,7 @@ function App() {
         return [
           formattedDate,
           item.co2 || 0,
-          item.dust || 0,
+          `="${item.dust || 0}"`,
           item.pres || 0
         ].join(';');
       })
