@@ -83,7 +83,7 @@ function App() {
       return;
     }
 
-    // 1. Оновлені заголовки: розділили Дату і Час на окремі стовпці
+    // 1. РОЗДІЛЯЄМО НА 5 СТОВПЦІВ: "Дата" та "Час" окремо
     const headers = ["Дата", "Час", "Рівень CO2 (ppm)", "Концентрація пилу (мкг/м³)", "Атмосферний тиск (hPa)"];
 
     // Перетворюємо кожен запис з історії у рядок CSV
@@ -96,14 +96,15 @@ function App() {
         const dateStr = dateObj.toLocaleDateString('uk-UA');
         const timeStr = dateObj.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
         
-        // ХАК ДЛЯ EXCEL: обгортаємо тексти і дроби в ="...", щоб Excel автоматично 
-        // підлаштовував ширину комірок і не перетворював пил на календарні дати.
+        // ХАК ДЛЯ EXCEL: обгортаємо абсолютно ВСІ текстові та дробові поля у ="..."
+        // Це примусово змушує Excel відкривати комірки на повну ширину і прибирає решітки (###)
         const excelDate = `="${dateStr}"`;
         const excelTime = `="${timeStr}"`;
         const excelDust = `="${item.dust || 0}"`;
         const excelPres = `="${item.pres || 0}"`;
-        const excelCo2  = item.co2 || 0; // Ціле число лишаємо як є
+        const excelCo2  = `="${item.co2 || 0}"`; // Теж обгортаємо для залізобетонного вирівнювання
 
+        // Повертаємо 5 елементів масиву, з'єднаних через крапку з комою
         return [
           excelDate,
           excelTime,
