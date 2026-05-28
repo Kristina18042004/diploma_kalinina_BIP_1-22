@@ -92,29 +92,22 @@ function App() {
       ...history.map(item => {
         const dateObj = new Date(item.date);
         
+        // Ручне збирання дати
         const day = String(dateObj.getDate()).padStart(2, '0');
         const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const year = String(dateObj.getFullYear()).slice(-2);
+        const year = String(dateObj.getFullYear()).slice(-2); // Останні дві цифри (26)
         
-        const dateStr = `${day}.${month}.${year}`;
+        // Додаємо пробіл та "р.", щоб Excel не намагався переробити рік на "2026"
+        const dateStr = `${day}.${month}.${year} р.`; 
         const timeStr = dateObj.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
         
-        // ХАК ДЛЯ EXCEL: обгортаємо абсолютно ВСІ текстові та дробові поля у ="..."
-        // Це примусово змушує Excel відкривати комірки на повну ширину і прибирає решітки (###)
         const excelDate = `="${dateStr}"`;
         const excelTime = `="${timeStr}"`;
         const excelDust = `="${item.dust || 0}"`;
         const excelPres = `="${item.pres || 0}"`;
-        const excelCo2  = `="${item.co2 || 0}"`; 
+        const excelCo2  = `="${item.co2 || 0}"`;
 
-        // Повертаємо 5 елементів масиву, з'єднаних через крапку з комою
-        return [
-          excelDate,
-          excelTime,
-          excelCo2,
-          excelDust,
-          excelPres
-        ].join(';');
+        return [excelDate, excelTime, excelCo2, excelDust, excelPres].join(';');
       })
     ];
 
