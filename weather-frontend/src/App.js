@@ -94,7 +94,11 @@ function App() {
         
         // Форматуємо окремо дату (ДД.ММ.РРРР) і окремо час (ГГ:ХХ) українською мовою
         const dateStr = dateObj.toLocaleDateString('uk-UA');
-        const dateStr = dateObj.toLocaleDateString('uk-UA', { day: '2-digit', month: '2-digit', year: '2-digit' });
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const year = String(dateObj.getFullYear()).slice(-2); // Беремо строго останні 2 цифри (26)
+
+        const dateStr = `${day}.${month}.${year}`;  
         
         // ХАК ДЛЯ EXCEL: обгортаємо абсолютно ВСІ текстові та дробові поля у ="..."
         // Це примусово змушує Excel відкривати комірки на повну ширину і прибирає решітки (###)
